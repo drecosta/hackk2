@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Running Numbers</title>
+    <style>
+        body {
+            background-color: black;
+            color: green;
+            font-size: 1em;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            height: 100vh;
+        }
+
+        #numbers-container {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .number {
+            margin-bottom: 5px;
+        }
+
+        .text {
+            margin-bottom: 20px;
+            font-size: 0.8em;
+        }
+
+        .loader {
+            font-size: 2em;
+            margin-right: 10px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader" class="loader">_</div>
+    <div id="list-container" style="display: none; text-align: left;">
+        <ul id="numbers-container"></ul>
+    </div>
+
+    <script>
+        const loader = document.getElementById("loader");
+        const numbersContainer = document.getElementById("numbers-container");
+        const listContainer = document.getElementById("list-container");
+
+        setTimeout(() => {
+            loader.style.display = "none";
+            listContainer.style.display = "block";
+
+            function generateNumbers() {
+                const numberListItem = document.createElement("li");
+                numberListItem.classList.add("number");
+
+                for (let i = 0; i < 8; i++) {
+                    const randomNumber = Math.floor(Math.random() * 100) + 1;
+                    const numberDigits = randomNumber.toString().split("");
+
+                    numberDigits.forEach((digit, index) => {
+                        setTimeout(() => {
+                            const numberElement = document.createElement("span");
+                            numberElement.textContent = digit;
+                            numberListItem.appendChild(numberElement);
+
+                            // Scroll to the bottom after adding the last digit of the last number
+                            if (i === 7 && index === numberDigits.length - 1) {
+                                numbersContainer.scrollTop = numbersContainer.scrollHeight;
+
+                                // Add "possible match" or "no match" after the numbers are done appearing
+                                const isPossibleMatch = Math.random() < 0.1;
+                                const textListItem = document.createElement("li");
+                                textListItem.classList.add("text");
+                                textListItem.textContent = isPossibleMatch ? "possible match" : "no match";
+                                numbersContainer.appendChild(textListItem);
+
+                                // Scroll to the bottom after adding the text
+                                numbersContainer.scrollTop = numbersContainer.scrollHeight;
+                            }
+                        }, (i * 8 + index) * 50);
+                    });
+                }
+
+                numbersContainer.appendChild(numberListItem);
+            }
+
+            setInterval(generateNumbers, 3000);
+        }, 5000);
+    </script>
+</body>
+
+</html>
