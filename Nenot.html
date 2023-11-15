@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notification Example</title>
+  <title>Tire</title>
+  <style>
+    .tire-image {
+      width: 300px;
+      height: 300px;
+    }
+
+    .tire-info {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .tire-info h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="tire-image">
+      <img src="https://i.imgur.com/example.jpg" alt="Tire image">
+    </div>
 
-  <h1>Notification Example</h1>
+    <div class="tire-info">
+      <h2>Tire Information</h2>
 
-  <button onclick="showNotification()">Show Notification</button>
-
-  <script>
-    function showNotification() {
-      // Check if the browser supports notifications
-      if ('Notification' in window) {
-        // Request permission to show notifications
-        Notification.requestPermission().then(function(permission) {
-          if (permission === 'granted') {
-            // Create a notification without an icon
-            var notification = new Notification('Hello!', {
-              body: 'This is a notification from your web app.'
-            });
-
-            // Optional: Handle click on the notification
-            notification.onclick = function() {
-              console.log('Notification clicked!');
-            };
-          } else {
-            console.log('Notification permission denied');
-          }
-        });
-      } else {
-        console.log('Notifications not supported on this browser.');
-      }
-    }
-  </script>
-
+      <p>FLATTION #I</p>
+      <p>?</p>
+      <p>-0°13'      885</p>
+      <p>OK</p>
+      <p>ISUZU, KE RT75RTIRT65 With over shing Rear Ace High Ride Suspension 20-20 (Candard Algiment)</p>
+      <p>LG</p>
+    </div>
+  </div>
 </body>
 </html>
